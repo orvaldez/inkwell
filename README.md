@@ -10,11 +10,11 @@ A backlog item is Done when:
 
 \- \[ ] New setup steps are documented here
 
+
+
 \## Process
 
 Inkwell follows an incremental process: one lecture, one increment.
 
 See docs/BACKLOG.md for the current product backlog.
-
-
 
