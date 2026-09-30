@@ -11,6 +11,8 @@ class EmailAlreadyRegisteredError extends Error {}
 class WeakPasswordError extends Error {}
 class InvalidCredentialsError extends Error {}
 
+// Section 4.5's "Magic Numbers" anti-pattern, corrected:
+const BCRYPT_COST_FACTOR = 10; // see Lecture 15 for the security tradeoff this number encodes
 const MIN_PASSWORD_LENGTH = 8;
 
 // Helper to strip internal database secrets before exposing the user entity
@@ -35,7 +37,7 @@ export const AuthService = {
       throw new WeakPasswordError();
     }
 
-    const passwordHash = await bcrypt.hash(password, 10);
+    const passwordHash = await bcrypt.hash(password, BCRYPT_COST_FACTOR);
 
     let user;
     try {
