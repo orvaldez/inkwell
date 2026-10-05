@@ -1,6 +1,9 @@
 {
   "name": "inkwell-server",
   "version": "0.1.0",
+  "engines": {
+    "node": ">=22.0.0"
+  },
   "private": true,
   "description": "Inkwell API server",
   "type": "module",
