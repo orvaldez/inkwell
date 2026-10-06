@@ -25,3 +25,8 @@
 
 ## Ownership
 - For this course project: the student/team implementing Inkwell owns SQA plan adherence.
+
+## Metrics Snapshot 10.6.2026
+- Commits: 17
+- Logged Defects: 1
+- Backlog Items marked Requirements Defined: 4
