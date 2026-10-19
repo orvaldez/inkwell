@@ -30,3 +30,9 @@
 - Commits: 17
 - Logged Defects: 1
 - Backlog Items marked Requirements Defined: 4
+
+## Testing
+- Unit tests: Services and Repositories (Jest) — ACTIVE (Lecture 12)
+- Integration tests: Routes → Services → Repositories, real test DB (Supertest) — ACTIVE (Lecture 13)
+- Component tests: React components (RTL) — ACTIVE (Lecture 13)
+- End-to-end tests: critical user flows (Playwright) — starting Lecture 14

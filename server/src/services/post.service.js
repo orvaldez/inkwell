@@ -1,11 +1,10 @@
 // server/src/services/post.service.js
-
 import { PostRepository } from "../repositories/post.repository.js";
 import { assertNonEmpty } from "../utils/validation.js";
 import { SubstringSearchStrategy } from "./search/substring-search.strategy.js";
 import { EventBus } from "../events/event-bus.js";
 
-const searchStrategy = SubstringSearchStrategy; // swap this line to change search behavior system-wide
+const searchStrategy = SubstringSearchStrategy;
 
 export const PostService = {
   async publish({ authorId, title, body, tagNames = [] }) {
@@ -44,7 +43,7 @@ export const PostService = {
     const term = typeof query === "object" && query !== null ? query.query : query;
     const { page = 1, pageSize = 10 } = typeof query === "object" && query !== null ? query : options;
 
-    if (!term || term.trim() === "") {
+    if (!term || typeof term !== "string" || term.trim() === "") {
       return [];
     }
 
