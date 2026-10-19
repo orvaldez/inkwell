@@ -39,7 +39,15 @@ export const PostService = {
     return { posts, page, hasMore };
   },
 
-  async search({ query, page = 1, pageSize = 10 }) {
-    return searchStrategy.search(query, { page, pageSize });
+  async search(query, options = {}) {
+    // Normalizes query input (handles string or object wrapper { query, page, pageSize })
+    const term = typeof query === "object" && query !== null ? query.query : query;
+    const { page = 1, pageSize = 10 } = typeof query === "object" && query !== null ? query : options;
+
+    if (!term || term.trim() === "") {
+      return [];
+    }
+
+    return searchStrategy.search(term, { page, pageSize });
   },
 };

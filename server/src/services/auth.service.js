@@ -22,7 +22,7 @@ function sanitizeUser(user) {
   return safeUser;
 }
 
-export const AuthService = {
+const AuthService = {
   async register({ email, displayName, password }) {
     assertNonEmpty(email, "email", "MISSING_EMAIL");
     assertNonEmpty(displayName, "displayName", "MISSING_DISPLAY_NAME");
@@ -70,6 +70,7 @@ export const AuthService = {
 };
 
 export {
+  AuthService,
   EmailAlreadyRegisteredError,
   WeakPasswordError,
   InvalidCredentialsError,
