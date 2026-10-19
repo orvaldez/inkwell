@@ -57,3 +57,23 @@ test("register and login work together end to end (Workshop 13 Exercise 1)", asy
   expect(loginRes.body.accessToken).toBeDefined();
   expect(loginRes.body.user.email).toBe("bob@example.com");
 });
+
+test("registration and login work together end-to-end (Workshop 13 Exercise 1)", async () => {
+    //Register a new user
+    const registerRes = await request(app).post("/api/auth/register").send({
+        email: "charlie@example.com",
+        displayName: "Charlie",
+        password: "correcthorse",
+    });
+    expect(registerRes.status).toBe(201);
+    expect(registerRes.body.user.email).toBe("charlie@example.com");
+
+  //Log in with the registered account
+  const loginRes = await request(app).post("/api/auth/login").send({
+    email: "charlie@example.com",
+    password: "correcthorse",
+    });
+    expect(loginRes.status).toBe(200);
+    expect(loginRes.body.accessToken).toBeDefined();
+    expect(loginRes.body.user.email).toBe("charlie@example.com");
+});
