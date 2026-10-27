@@ -7,6 +7,7 @@ import {
   WeakPasswordError,
   InvalidCredentialsError,
 } from "../services/auth.service.js";
+import { authRateLimiter } from "../middleware/rate-limit.middleware.js";
 
 const router = Router();
 
@@ -17,7 +18,7 @@ function sanitizeUser(user) {
   return safeUser;
 }
 
-router.post("/auth/register", async (req, res) => {
+router.post("/auth/register", authRateLimiter, async (req, res) => {
   try {
     const result = await AuthService.register(req.body);
 
@@ -50,14 +51,13 @@ router.post("/auth/register", async (req, res) => {
   }
 });
 
-router.post("/auth/login", async (req, res) => {
+router.post("/auth/login", authRateLimiter, async (req, res) => {
   try {
     const result = await AuthService.login(req.body);
 
     const sanitizedResponse = result.user
       ? { ...result, user: sanitizeUser(result.user) }
       : sanitizeUser(result);
-
     res.status(200).json(sanitizedResponse);
   } catch (err) {
     if (err instanceof InvalidCredentialsError) {
