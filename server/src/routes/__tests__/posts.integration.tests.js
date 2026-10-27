@@ -77,3 +77,13 @@ test("registration and login work together end-to-end (Workshop 13 Exercise 1)",
     expect(loginRes.body.accessToken).toBeDefined();
     expect(loginRes.body.user.email).toBe("charlie@example.com");
 });
+
+test("clamps oversized pageSize on GET /api/posts to mitigate DoS (Workshop 15 Exercise 1)", async () => {
+  // Request an excessively large pageSize
+  const res = await request(app).get("/api/posts?page=1&pageSize=1000");
+
+  expect(res.status).toBe(200);
+  expect(res.body).toHaveProperty("posts");
+  // The clamped max limit is 50
+  expect(res.body.posts.length).toBeLessThanOrEqual(50);
+});
