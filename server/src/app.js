@@ -9,6 +9,7 @@ import postRoutes from "./routes/post.routes.js";
 import statsRoutes from "./routes/stats.routes.js";
 import "./events/listeners/log-published-posts.listener.js";
 import "./events/listeners/stats.listener.js";
+import { errorHandler } from "./middleware/error-handler.js";
 
 export const app = express();
 
@@ -19,12 +20,4 @@ app.use("/api", postRoutes);
 app.use("/api", statsRoutes);
 
 // Error-handling middleware
-app.use((err, req, res, next) => {
-  console.error(err);
-  res.status(err.status || 500).json({
-    error: {
-      code: err.code || "INTERNAL_ERROR",
-      message: err.message,
-    },
-  });
-});
+app.use(errorHandler);

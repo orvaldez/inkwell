@@ -1,3 +1,4 @@
+// server/src/repositories/post.repository.js
 import { prisma } from "../db/client.js";
 import { toPublicUser } from "../dto/user.dto.js";
 
@@ -91,5 +92,14 @@ export const PostRepository = {
       })),
       hasMore,
     };
+  },
+
+  // Workshop 16 Section 1.2: A01 Access Control helpers
+  findById(id) {
+    return prisma.post.findUnique({ where: { id } });
+  },
+
+  deleteById(id) {
+    return prisma.post.delete({ where: { id } });
   },
 };

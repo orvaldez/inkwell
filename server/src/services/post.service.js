@@ -49,4 +49,13 @@ export const PostService = {
 
     return searchStrategy.search(term, { page, pageSize });
   },
+
+  // Workshop 16 
+  async getById(id) {
+    return PostRepository.findById(id);
+  },
+
+  async delete(id) {
+    return PostRepository.deleteById(id);
+  },
 };
