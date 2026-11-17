@@ -33,10 +33,17 @@ jobs:
       - name: Audit server dependencies
         run: npm audit --audit-level=high --omit=dev
         working-directory: server
+        # --omit=dev: picomatch has a high advisory (GHSA-fc5q-39xc-vjpf)
+        # covering every version, with no fix released yet. It only reaches
+        # the server through dev tools (jest), which never ship in the
+        # Docker image (npm ci --omit=dev). Remove --omit=dev once a
+        # patched version exists.
       - name: Audit client dependencies
-        run: npm audit --audit-level=high
+        run: npm audit --audit-level=high --omit=dev
         working-directory: client
-
+        # --omit=dev: same picomatch advisory. It only reaches the client
+        # through dev tools (vite, vitest), which never ship in the built
+        # bundle. Remove --omit=dev once a patched version exists.
   server-tests:
     runs-on: ubuntu-latest
     services:
