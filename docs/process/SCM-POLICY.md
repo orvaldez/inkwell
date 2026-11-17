@@ -24,3 +24,18 @@ Examples:
 
     feat(posts): add tag-based search
     security(auth): fix authorId spoofing vulnerability
+
+## CI Enforcement (Lecture 20)
+`main` is now a protected branch:
+- Required status checks: dependency-audit, server-tests, client-tests,
+  e2e-tests, docker-build
+- No direct pushes to main; all changes via pull request
+- Branches must be up to date with main before merging
+- The rule applies to administrators too
+- This turns Lecture 17's "main is always deployable" policy from a
+  documented intention into a mechanically enforced guarantee — a
+  pull request cannot merge until every required check passes.
+- Both dependency audits use `--omit=dev` because picomatch has a high
+  advisory (GHSA-fc5q-39xc-vjpf) affecting every version, with no fix yet,
+  that only reaches dev tools (jest, vite, vitest). Remove `--omit=dev`
+  once a patched version is released.
